@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classroom Portal</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loading"><div class="spinner"></div></div>
+  <div id="error"></div>
+  <div id="students" class="section"></div>
+  <div id="status"></div>
+  <div id="homeworks" class="section"></div>
+  <div id="footer" class="section">
+    <p>This page shows the homework set for your child's classes.</p>
+    <p>It does not show which tasks have been completed or missed.</p>
+    <p>To view the full assignments, including links and attachments, your child should always use Google Classroom.</p>
+    <br/><a onclick="signOut()">Sign out</a>
+  </div>
+  <script type="text/javascript">const apiPath = '{{env.workerUrl}}/homework/';</script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+</html>

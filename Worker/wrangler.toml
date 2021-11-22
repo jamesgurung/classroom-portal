@@ -1,0 +1,15 @@
+name = "classroomportal"
+type = "javascript"
+
+workers_dev = true
+compatibility_date = "2021-11-21"
+
+# [secrets]
+# CLIENT_ORIGIN
+# COURSES_SUFFIX
+# ENCRYPTION_IV
+# ENCRYPTION_KEY
+# ENCRYPTION_URL
+# GOOGLE_PRIVATE_KEY
+# GOOGLE_SERVICE_ACCOUNT_EMAIL
+# STUDENT_EMAIL_DOMAIN

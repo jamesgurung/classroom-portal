@@ -1,0 +1,160 @@
+﻿---
+permalink: /styles.css
+---
+body {
+  font: 11pt arial, sans-serif;
+  margin: 0;
+}
+
+h2 {
+  font-size: 16pt;
+  margin: 24px 0 10px;
+}
+
+p {
+  margin: 12px 0;
+}
+
+a {
+  color: #0026ff;
+  cursor: pointer;
+}
+
+.section {
+  padding: 10px 18px;
+}
+
+#loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+
+  .spinner:after {
+    content: " ";
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 0px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    border-color: gray transparent gray transparent;
+    animation: spinner 1s linear infinite;
+  }
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#error {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  display: none;
+  text-align: center;
+}
+
+#students {
+  background-color: lightgray;
+  padding: 10px 18px;
+  display: none;
+}
+
+label {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+#status {
+  display: none;
+  height: 4px;
+}
+
+  #status.ready {
+    background-color: white;
+  }
+
+  #status.offline {
+    height: auto;
+    padding: 6px;
+    background-color: gold;
+    text-align: center;
+    font-size: 10pt;
+  }
+
+  #status.refreshing {
+    background-color: lightgray;
+    transition: opacity 0.3s ease;
+    background-size: 10px 10px;
+    background-image: linear-gradient(-45deg, white 25%, transparent 25%, transparent 50%, white 50%, white 75%, transparent 75%, transparent);
+    animation: status-animation 0.5s linear infinite;
+  }
+
+@keyframes status-animation {
+  from { background-position: 0 0; }
+  to { background-position: 60px 0; }
+}
+
+#homeworks {
+  display: none;
+  position: relative;
+  top: -16px;
+}
+
+.homework {
+  margin: 0 0 12px;
+}
+
+  .homework header {
+    padding: 6px;
+    color: #fff;
+    border: 2px solid;
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .homework header span {
+    font-size: 10pt;
+  }
+
+  .homework main {
+    padding: 0 6px;
+    border: 2px solid;
+    border-radius: 0 0 6px 6px;
+  }
+
+#tomorrow .homework header { border-color: green; background-color: green; }
+#tomorrow .homework main { border-color: green; }
+
+#upcoming .homework header { border-color: #7fbf7f; background-color: #7fbf7f; }
+#upcoming .homework main { border-color: #7fbf7f; }
+
+#past .homework header { border-color: #a2a2a2; background-color: #a2a2a2; }
+#past .homework main { border-color: #a2a2a2; }
+
+#footer {
+  padding-top: 0;
+  display: none;
+  text-align: center;
+  font-size: 8pt;
+  color: grey;
+}
+
+#footer p {
+  margin: 0 0 6px;
+}
