@@ -22,6 +22,7 @@ async function handleRequestAsync(request) {
   if (path.startsWith('/encrypt/' + ENCRYPTION_URL + '/'))
   {
     const plainText = path.slice(ENCRYPTION_URL.length + 10);
+    if (!validateUsername(plainText)) return new Response('Bad Request', { status: 400, headers: corsHeaders });
     const cipherText = await encryptAsync(plainText);
     return new Response(cipherText, { headers: corsHeaders });
   }
@@ -29,7 +30,7 @@ async function handleRequestAsync(request) {
   {
     const token = path.slice(10);
     const username = await decryptAsync(token);
-    if (!username) return new Response('Not Found', { status: 404, headers: corsHeaders });
+    if (!validateUsername(username)) return new Response('Not Found', { status: 404, headers: corsHeaders });
     const email = username + '@' + STUDENT_EMAIL_DOMAIN;
 
     return new Response(await getHomeworksAsync(email), { headers: corsHeaders });
@@ -39,6 +40,10 @@ async function handleRequestAsync(request) {
     return new Response('Not Found', { status: 404, headers: corsHeaders });
   }
 };
+
+function validateUsername(username) {
+  return username && username.length <= 50 && /^[A-Za-z0-9._'-]+$/.test(username);
+}
 
 async function getHomeworksAsync(email) {
   const headers = { Authorization: `Bearer ${await getGoogleAuthToken(email)}` };
