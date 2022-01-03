@@ -118,6 +118,7 @@ function getSubject(cls) {
     case 'Pg': return 'GCSE PE';
     case 'Pt': return 'Photography';
     case 'Py': return 'Psychology';
+    case 'Rr': return 'Reading';
     case 'Rs': return 'Religious Studies';
     case 'Sc': return 'Science';
     case 'So': return 'Sociology';

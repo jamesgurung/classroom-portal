@@ -148,11 +148,14 @@ function changeStudent(key) {
       }
     }
 
-    $homeworks.innerHTML = '';
-
-    createSection('tomorrow', 'Due ' + (today.getDay() < 5 ? 'tomorrow' : 'on Monday'), tomorrowList);
-    createSection('upcoming', 'Upcoming', upcomingList);
-    createSection('past', 'Past week', pastList.reverse());
+    if (tomorrowList.length + upcomingList.length + pastList.length === 0) {
+      $homeworks.innerHTML = '<h2>No current homework.</h2>';
+    } else {
+      $homeworks.innerHTML = '';
+      createSection('tomorrow', 'Due ' + (today.getDay() < 5 ? 'tomorrow' : 'on Monday'), tomorrowList);
+      createSection('upcoming', 'Upcoming', upcomingList);
+      createSection('past', 'Past week', pastList.reverse());
+    }
 
     if (fromOnline) setStatus('ready');
 
