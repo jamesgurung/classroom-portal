@@ -52,10 +52,10 @@ This serverless app will provide a secure API to retrieve homework assignments f
 * Go to `https://classroomportal.yourschool.workers.dev/generatesecrets`, where `yourschool` is the name of the subdomain you created earlier. Copy the values of the generated secrets.
 * Go back to your Cloudflare Worker, and click Settings -> Variables -> Edit variables. Create the following settings, and select Encrypt for each one (if you don't select Encrypt, they will be deleted every time the app updates):
   * `ENCRYPTION_IV`, `ENCRYPTION_KEY`, and `ENCRYPTION_URL` - The values from `/generatesecrets`.
-  * `GOOGLE_PRIVATE_KEY` - The value of the private key you downloaded in Step 2. Open the key file and copy the value of `private_key` (everything from "-----BEGIN PRIVATE KEY-----" to "-----END PRIVATE KEY-----").
+  * `GOOGLE_PRIVATE_KEY` - The value of the private key you downloaded in Step 2. Open the key file and copy the value of `private_key` (everything between "-----BEGIN PRIVATE KEY-----" and "-----END PRIVATE KEY-----", exclusive). Remove all `\n` tokens.
   * `GOOGLE_SERVICE_ACCOUNT_EMAIL` - The email address of your service account. This can be found under `client_email` in the key file, and usually ends in `.iam.gserviceaccount.com`.
   * `STUDENT_EMAIL_DOMAIN` - The domain name for your student email addresses (e.g. `yourschool.org`).
-  * `CLIENT_ORIGIN` - The custom domain where you will run the final version of your app (e.g. `homework.yourschool.org`). This is used to set the Access-Control-Allow-Origin header.
+  * `CLIENT_ORIGIN` - The custom domain where you will run the final version of your app (e.g. `https://homework.yourschool.org`). This is used to set the Access-Control-Allow-Origin header.
   * `COURSES_SUFFIX` - Homework tasks will only be fetched from Google Classroom courses that end in this value (e.g. `-2021`). Use `*` to accept all classes.
 * Test that your worker is running correctly. Navigate to the following paths on `https://classroomportal.yourschool.workers.dev`, where `yourschool` is your subdomain:
   * `/encrypt/{ENCRYPTION_URL}/{studentUsername}` (where `ENCRYPTION_URL` is the value you saved earlier and `studentUsername` is any test student at your school) - This will encrypt the student's username, and you will use this encrypted value in the next step.
