@@ -211,7 +211,7 @@ async function getHomeworks(cachedItem) {
     console.log('Fetch failed: ' + err);
     return;
   }
-  cachedItem.homeworks = await response.json();
+  cachedItem.homeworks = (await response.json()).sort((a, b) => (a.dueDate - b.dueDate));
   cachedItem.timestamp = Date.now();
   localStorage.setItem('students', JSON.stringify(students));
   return cachedItem;
