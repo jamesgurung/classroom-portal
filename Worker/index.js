@@ -77,7 +77,7 @@ async function getHomeworksAsync(email) {
     }
   }
 
-  return JSON.stringify(homeworks);
+  return JSON.stringify(homeworks.sort((a, b) => (a.dueDate - b.dueDate)));
 };
 
 function getSubject(cls) {
