@@ -122,6 +122,7 @@ function changeStudent(key) {
   } else if (navigator.onLine) {
     setStatus('refreshing');
     getHomeworks(cached).then(student => displayHomeworks(student, true));
+    fetch(new Request(apiPath.replace('/homework/', '')));
   } else {
     setStatus('offline');
   }
