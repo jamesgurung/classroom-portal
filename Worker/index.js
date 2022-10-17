@@ -85,32 +85,28 @@ function getSubject(cls) {
   if (i < 0 || i + 2 > cls.Length) return cls;
   switch (cls.substr(i, 2))
   {
-    case 'Aa': return 'Art & Design';
     case 'Ad': return 'Graphics';
     case 'Ar': return 'Art';
+    case 'As': return 'ASPIRE';
+    case 'Aw': return 'ASDAN';
     case 'Bn': return 'Business';
     case 'By': return 'Biology';
     case 'Cc': return 'Child Development';
     case 'Ch': return 'Chemistry';
     case 'Cp': return 'Computing';
-    case 'Cs': return 'Computer Science';
     case 'Dr': return 'Drama';
     case 'Dt': return 'Design & Technology';
+    case 'Ec': return 'Economics';
     case 'En': return 'English';
-    case 'Fk': return 'Functional Skills';
     case 'Fm': return 'Further Maths';
     case 'Fo': return 'Food & Nutrition';
     case 'Fr': return 'French';
     case 'Gg': return 'Geography';
-    case 'Gm': return 'German';
     case 'Go': return 'Politics';
     case 'Hc': return 'Health & Social Care';
     case 'Hi': return 'History';
-    case 'Ho': return 'Hospitality & Catering';
     case 'It': return 'IT';
     case 'Ma': return 'Maths';
-    case 'Mr': return 'Maths Resit';
-    case 'Ms': return 'Media Studies';
     case 'Mu': return 'Music';
     case 'Pa': return 'Performing Arts';
     case 'Pc': return 'Physics';
@@ -122,11 +118,11 @@ function getSubject(cls) {
     case 'Rs': return 'Religious Studies';
     case 'Sc': return 'Science';
     case 'So': return 'Sociology';
-    case 'Sp': return 'Spanish';
     case 'Ss': return 'Sport Science';
     case 'St': return 'Statistics';
     case 'Tx': return 'Textiles';
-    case 'Wk': return 'ASDAN';
+    case 'Wa': return 'Wellbeing Active';
+    case 'Wi': return 'Wellbeing Inspire';
     default: return cls;
   };
 }
@@ -146,8 +142,7 @@ async function getGoogleAuthToken(email) {
 
   async function sign(content, signingKey) {
     const bytes = asciiToByteArray(content);
-    const plainKey = signingKey.replace('-----BEGIN PRIVATE KEY-----', '').replace('-----END PRIVATE KEY-----', '').replace(/(\r\n|\n|\r)/gm, '');
-    const keyData = asciiToByteArray(atob(plainKey));
+    const keyData = asciiToByteArray(atob(signingKey));
     const key = await crypto.subtle.importKey('pkcs8', keyData, { name: 'RSASSA-PKCS1-V1_5', hash: { name: 'SHA-256' } }, false, ['sign']);
     const signature = await crypto.subtle.sign({ name: 'RSASSA-PKCS1-V1_5' }, key, bytes);
     return arrayBufferToBase64Url(signature);
@@ -224,13 +219,4 @@ function base64ToByteArray(str) {
 function byteArrayToBase64(bytes) {
   const chars = byteArrayToAscii(bytes);
   return btoa(chars).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
-}
-
-class Base64URL {
-  static parse(s) {
-      return new Uint8Array(Array.prototype.map.call(atob(s.replace(/-/g, '+').replace(/_/g, '/').replace(/\s/g, '')), c => c.charCodeAt(0)))
-  }
-  static stringify(a) {
-      return btoa(String.fromCharCode.apply(0, a)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
-  }
 }
