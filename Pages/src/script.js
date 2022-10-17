@@ -64,7 +64,7 @@ let selectedKey;
     }).catch(() => error('Unable to connect.')).then(json => {
       if (!json) return;
       const student = students.find(o => o.key === key);
-      student.homeworks = json.sort((a, b) => (a.dueDate - b.dueDate));
+      student.homeworks = json.sort((a, b) => a.dueDate === b.dueDate ? 0 : (a.dueDate < b.dueDate ? -1 : 1));
       student.timestamp = Date.now();
       if (++successes === students.length) {
         localStorage.setItem('students', JSON.stringify(students));
@@ -211,7 +211,7 @@ async function getHomeworks(cachedItem) {
     console.log('Fetch failed: ' + err);
     return;
   }
-  cachedItem.homeworks = (await response.json()).sort((a, b) => (a.dueDate - b.dueDate));
+  cachedItem.homeworks = (await response.json()).sort((a, b) => a.dueDate === b.dueDate ? 0 : (a.dueDate < b.dueDate ? -1 : 1));
   cachedItem.timestamp = Date.now();
   localStorage.setItem('students', JSON.stringify(students));
   return cachedItem;
