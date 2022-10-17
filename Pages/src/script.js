@@ -64,7 +64,7 @@ let selectedKey;
     }).catch(() => error('Unable to connect.')).then(json => {
       if (!json) return;
       const student = students.find(o => o.key === key);
-      student.homeworks = json;
+      student.homeworks = json.sort((a, b) => (a.dueDate - b.dueDate));
       student.timestamp = Date.now();
       if (++successes === students.length) {
         localStorage.setItem('students', JSON.stringify(students));
