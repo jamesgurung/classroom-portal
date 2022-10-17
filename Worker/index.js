@@ -62,6 +62,8 @@ async function getHomeworksAsync(email) {
   const courseworkListResults = await Promise.all(requests);
   const today = new Date().setHours(0,0,0,0);
   const oneWeek = 6.048e+8;
+  const start = today - oneWeek;
+  const end = today + 3 * oneWeek;
   const homeworks = [];
   for (let i = 0; i < courseworkListResults.length; i++) {
     const courseworkItems = courseworkListResults[i].courseWork;
@@ -69,13 +71,13 @@ async function getHomeworksAsync(email) {
     for (const hw of courseworkItems) {
       if (!hw.dueDate || !hw.dueDate.year || !hw.dueDate.month || !hw.dueDate.year) continue;
       var date = new Date(hw.dueDate.year, hw.dueDate.month - 1, hw.dueDate.day);
-      if (date > today + 3 * oneWeek) continue;
-      if (date < today - oneWeek) break;
+      if (date > end) continue;
+      if (date < start) break;
       homeworks.push({ title: hw.title.trim(), description: hw.description?.trim() ?? '', dueDate: date, subject: getSubject(courses[i].name) });
     }
   }
 
-  return JSON.stringify(homeworks.sort((a, b) => (a.dueDate - b.dueDate)));
+  return JSON.stringify(homeworks);
 };
 
 function getSubject(cls) {
