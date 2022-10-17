@@ -19,6 +19,8 @@ async function handleRequestAsync(request) {
   if (method === 'OPTIONS') return handleOptions(request, corsHeaders);
   if (method !== 'GET') return new Response('Method Not Allowed', { status: 405, headers: corsHeaders });
   
+  if (path === '/') return new Response('', { headers: corsHeaders });
+  
   if (path.startsWith('/encrypt/' + ENCRYPTION_URL + '/'))
   {
     const plainText = path.slice(ENCRYPTION_URL.length + 10);
